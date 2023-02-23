@@ -6,3 +6,11 @@ module.exports = {
   "seeders-path": path.resolve("app", "seeders"),
   "migrations-path": path.resolve("app", "migrations"),
 };
+//relevant commands to remember
+/*
+make sure you are in the back_end directory first!!!!!!!!!!!
+npm install --save-dev sequelize-cli use this to install sequelize if you haven't already
+go to config.json in the app/config folder and change the password to your locally hosted password
+run this command npx sequelize-cli db:migrate this will create all tables and columns needed
+run this command npx sequelize-cli db:seed:all this will create dummy data to populate said tables
+*/
