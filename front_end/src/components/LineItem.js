@@ -1,18 +1,13 @@
-const LineItem = ({item, handleCheck, handleDelete}) => {
+const LineItem = ({eventName, handleCheck, handleDelete}) => {
 
     return(
-        <li className="item" key={item.id}>
+        <li className="item" key={eventName.id}>
             <input 
                 type="checkbox"
-                onChange={() => handleCheck(item.id)}
-                checked={item.checked}
+                onChange={() => handleCheck(eventName.id)}
+                checked={eventName.checked}
             />
-            <label
-            style={(item.checked) ? { textDecoration: 
-            'line-through'} : null}
-                onDoubleClick={() => handleCheck(item.id)}
-            >{item.item}</label>
-            <button onClick={() => handleDelete(item.id)}>Delete</button>
+            <button onClick={() => handleCheck(eventName.id)}>Button</button>
         </li>
     )
 }
