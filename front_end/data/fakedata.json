@@ -1,0 +1,58 @@
+{
+    "tickets": [
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"8-3-2023",
+            "ticketID": 1,
+            "stockPrice": 120,
+            "description": "Thursday Only GA",
+            "numTickets": 20000
+        },
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"8-4-2023",
+            "ticketID": 2,
+            "stockPrice": 120,
+            "description": "Friday Only GA",
+            "numTickets": 20000
+        },
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"8-5-2023",
+            "ticketID": 3,
+            "stockPrice": 120,
+            "description": "Saturday Only GA",
+            "numTickets": 20000
+        },
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"8-6-2023",
+            "ticketID": 4,
+            "stockPrice": 120,
+            "description": "Sunday Only GA",
+            "numTickets": 20000
+        },
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"August 3 - 6, 2023",
+            "ticketID": 5,
+            "stockPrice": 450,
+            "description": "4 Day GA",
+            "numTickets": 250000
+        },
+        {
+            "category": "festival",
+            "eventName":"Lollapalooza 2023",
+            "date":"August 3 - 6, 2023",
+            "ticketID": 6,
+            "stockPrice": 900,
+            "description": "4 Day VIP Admission",
+            "numTickets": 5000
+        }
+    ]
+}

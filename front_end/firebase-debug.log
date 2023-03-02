@@ -1,0 +1,37 @@
+[debug] [2023-02-28T22:23:14.684Z] ----------------------------------------------------------------------
+[debug] [2023-02-28T22:23:14.686Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --only hosting
+[debug] [2023-02-28T22:23:14.687Z] CLI Version:   11.24.0
+[debug] [2023-02-28T22:23:14.687Z] Platform:      darwin
+[debug] [2023-02-28T22:23:14.687Z] Node Version:  v18.14.0
+[debug] [2023-02-28T22:23:14.688Z] Time:          Tue Feb 28 2023 16:23:14 GMT-0600 (Central Standard Time)
+[debug] [2023-02-28T22:23:14.689Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-28T22:23:14.832Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-28T22:23:14.833Z] > authorizing via signed-in user (tjsubaric@gmail.com)
+[debug] [2023-02-28T22:23:14.833Z] [iam] checking project nfticket-f0356 for permissions ["firebase.projects.get"]
+[debug] [2023-02-28T22:23:14.834Z] > refreshing access token with scopes: []
+[debug] [2023-02-28T22:23:14.837Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-02-28T22:23:14.837Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-28T22:23:15.126Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-02-28T22:23:15.126Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-28T22:23:15.162Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/nfticket-f0356:testIamPermissions [none]
+[debug] [2023-02-28T22:23:15.162Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/nfticket-f0356:testIamPermissions x-goog-quota-user=projects/nfticket-f0356
+[debug] [2023-02-28T22:23:15.163Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nfticket-f0356:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-02-28T22:23:15.389Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/nfticket-f0356:testIamPermissions 200
+[debug] [2023-02-28T22:23:15.389Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nfticket-f0356:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-02-28T22:23:15.390Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 [none]
+[debug] [2023-02-28T22:23:15.661Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 200
+[debug] [2023-02-28T22:23:15.661Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 {"projectId":"nfticket-f0356","projectNumber":"575312394572","displayName":"NFTicket","name":"projects/nfticket-f0356","resources":{"hostingSite":"nfticket-f0356","realtimeDatabaseInstance":"nfticket-f0356-default-rtdb"},"state":"ACTIVE","etag":"1_c7819481-2a0f-4860-b859-de9c8cfce68c"}
+[debug] [2023-02-28T22:23:15.782Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/nfticket-f0356/sites 
+[debug] [2023-02-28T22:23:16.243Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/nfticket-f0356/sites 200
+[debug] [2023-02-28T22:23:16.243Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/nfticket-f0356/sites {"sites":[{"name":"projects/nfticket-f0356/sites/nfticket-f0356","defaultUrl":"https://nfticket-f0356.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-02-28T22:23:16.244Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356/webApps/-/config [none]
+[debug] [2023-02-28T22:23:16.752Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356/webApps/-/config 200
+[debug] [2023-02-28T22:23:16.752Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356/webApps/-/config {"projectId":"nfticket-f0356","appId":"1:575312394572:web:8203623c9256f953eeb7e9","databaseURL":"https://nfticket-f0356-default-rtdb.firebaseio.com","storageBucket":"nfticket-f0356.appspot.com","apiKey":"AIzaSyC8vZ-feUJW1h9Yr6SqA4bZvf7EZWDRol4","authDomain":"nfticket-f0356.firebaseapp.com","messagingSenderId":"575312394572"}
+[debug] [2023-02-28T22:23:16.767Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 [none]
+[debug] [2023-02-28T22:23:16.978Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 200
+[debug] [2023-02-28T22:23:16.978Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nfticket-f0356 {"projectId":"nfticket-f0356","projectNumber":"575312394572","displayName":"NFTicket","name":"projects/nfticket-f0356","resources":{"hostingSite":"nfticket-f0356","realtimeDatabaseInstance":"nfticket-f0356-default-rtdb"},"state":"ACTIVE","etag":"1_c7819481-2a0f-4860-b859-de9c8cfce68c"}
+[debug] [2023-02-28T22:23:16.979Z] Specified "public" directory "build" does not exist; Deploy to Hosting site "nfticket-f0356" may fail or be empty.
+[info] i  hosting[nfticket-f0356]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting[nfticket-f0356]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [28/Feb/2023:22:24:21 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [28/Feb/2023:22:24:21 +0000] \"GET / HTTP/1.1\" 404 139 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\""}}

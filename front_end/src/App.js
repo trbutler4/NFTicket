@@ -1,11 +1,9 @@
-import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateEvent from "./pages/CreateEvent";
 import Events from "./pages/Events";
 import MyTicketsPage from "./pages/MyTicketsPage";
 import CreateEventConfirmation from "./pages/CreateEventConfirmation";
-
 import { createBrowserHistory as history } from "history";
 import Dashboard from "./components/dashboard";
 

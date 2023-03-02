@@ -30,11 +30,6 @@ export default function EventCard() {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
         title="NFT Event Name"
         subheader="Date"
       />
