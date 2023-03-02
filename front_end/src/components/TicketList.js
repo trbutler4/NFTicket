@@ -4,7 +4,7 @@ const TicketList = ({ items, handleCheck, handleDelete }) => {
      
     return(
         <u1>
-            {items.map((item) => (
+            {items.map((eventName) => (
                 <LineItem
                     key={item.id}
                     item={item}
