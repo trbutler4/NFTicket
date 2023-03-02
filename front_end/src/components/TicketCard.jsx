@@ -22,7 +22,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function TicketCard() {
+export default function TicketCard({}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -32,11 +32,6 @@ export default function TicketCard() {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
         title="NFT Event Name"
         subheader="Date"
       />
