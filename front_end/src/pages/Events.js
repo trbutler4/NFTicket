@@ -1,5 +1,5 @@
 //import * as React from "react";
-import React, { useState } from "react";
+import { useState, useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -9,10 +9,10 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import TicketCard from '../components/TicketCard';
+import Content from '../components/Content';
 import "./Events.css";
 
-const Events = () => {
+ function Events() {
   const propsData = {
     dashboard: {
       dashboard: {
@@ -24,7 +24,33 @@ const Events = () => {
       },
     },
   };
+
+  const API_URL = 'http://localhost:3500/events';
+  const [events, setEvents ] = useState([]);
+  const[search, setSearch] = useState('');
+  const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [imageSrc, setimageSrc] = useState("");
+  const [showEvents, setshowEvents] = useState(false);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if(!response.ok) throw Error('Did not receive expected data');
+        const listItems = await response.json();
+        setEvents(listItems);
+        setFetchError(null);
+      } catch(err) {
+        setFetchError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    setTimeout(() => {
+    (async () => await fetchItems())();
+    }, 2000)
+  }, [])
 
   //event handling for category clicks
   const handleClick = (e) => {
@@ -38,6 +64,7 @@ const Events = () => {
     if (e.target.alt === "Festivals") {
       console.log("Festivals");
       document.getElementsByClassName("categoryLabel")[0].innerHTML = "Festivals";
+      document.getElementsByClassName("nftGrid")[0].style.visibility = "visible";
     }
     if (e.target.alt === "Sports") {
       console.log("Sports");
@@ -129,7 +156,15 @@ const Events = () => {
       <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {Array.from(Array(12)).map((_, index) => (
           <Grid item xs={4} sm={6} md={3} key={index}>
-            {/* EventCard */}
+            <main>
+              {isLoading && <p>Loading Items...</p>}
+              {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
+            {!fetchError && !isLoading && <Content
+              events={events.filter(eventName => ((eventName.eventName).toLowerCase()).includes
+                (search.toLowerCase()))}
+              handleClick={handleClick}
+            />}
+          </main>
           </Grid>
         ))}
       </Grid>

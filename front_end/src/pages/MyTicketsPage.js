@@ -1,7 +1,6 @@
 import * as React from "react";
 import "./MyTicketsPage.css";
 import Box from '@mui/material/Box';
-import { ButtonGroup } from "@mui/material";
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -11,9 +10,8 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import PersonIcon from '@mui/icons-material/Person';
 import BrushIcon from '@mui/icons-material/Brush';
-//import TicketCard from "../components/TicketCard";
 
-export default function MyTicketsPage() {
+const MyTicketsPage = () => {
 
   const [value, setValue] = React.useState('1');
 
@@ -54,7 +52,6 @@ export default function MyTicketsPage() {
                   </Grid>
                 </Box>
               </div>
-
             </TabPanel>
 
             <TabPanel value="2">
@@ -78,3 +75,5 @@ export default function MyTicketsPage() {
     </div>
   );
 };
+
+export default MyTicketsPage;
