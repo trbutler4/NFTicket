@@ -8,6 +8,7 @@ const EventList = ({ events, handleCheck }) => {
                 <EventComp
                     key={eventName.id}
                     eventName={eventName}
+                    category={eventName.category}
                     handleCheck={handleCheck}
                 />
             ))}

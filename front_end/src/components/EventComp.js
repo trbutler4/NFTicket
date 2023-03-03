@@ -1,12 +1,7 @@
-const EventComp = ({eventName, handleCheck}) => {
+const EventComp = ({eventName, category}) => {
 
     return(
         <li className="eventName" key={eventName.id}>
-            <input 
-                type="checkbox"
-                onChange={() => handleCheck(eventName.id)}
-                checked={eventName.checked}
-            />
             <label>{eventName.eventName}</label>
             <br />
             <label>{eventName.category}</label>

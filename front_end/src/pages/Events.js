@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Content from '../components/Content';
+import SearchEvent from '../components/SearchEvent';
 import "./Events.css";
 
  function Events() {
@@ -31,7 +32,6 @@ import "./Events.css";
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [imageSrc, setimageSrc] = useState("");
-  const [showEvents, setshowEvents] = useState(false);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -150,27 +150,28 @@ import "./Events.css";
       ))}
     </ImageList> 
     <label className="categoryLabel" ></label>
-
-<div className="nftGrid" >
-    <Box sx={{ flexGrow: 1 }} >
-      <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {Array.from(Array(12)).map((_, index) => (
-          <Grid item xs={4} sm={6} md={3} key={index}>
-            <main>
-              {isLoading && <p>Loading Items...</p>}
-              {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
-            {!fetchError && !isLoading && <Content
-              events={events.filter(eventName => ((eventName.eventName).toLowerCase()).includes
-                (search.toLowerCase()))}
-              handleClick={handleClick}
-            />}
-          </main>
+    
+    <div className="nftGrid" >
+        <Box sx={{ flexGrow: 1 }} >
+          <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <SearchEvent search={search} setSearch={setSearch} />
+            {Array.from(Array(12)).map((_, index) => (
+              <Grid item xs={4} sm={6} md={3} key={index}>
+                  {isLoading && <p>Loading Items...</p>}
+                  {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
+                {!fetchError && !isLoading && <Content
+                  events={events.filter(eventName => ((eventName.eventName).toLowerCase()).includes
+                    (search.toLowerCase()))}
+                  handleClick={handleClick}
+                />}
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-    </Box>
-    </div>
-    </div>
-  );
-};
+        </Box>
+        </div>
+      </div>
+    );
+  };
+
+
 export default Events;
