@@ -6,12 +6,23 @@ import MyTicketsPage from "./pages/MyTicketsPage";
 import CreateEventConfirmation from "./pages/CreateEventConfirmation";
 import { createBrowserHistory as history } from "history";
 import Dashboard from "./components/dashboard";
+import { useState, useEffect } from 'react';
 
 function App() {
+
+  const API_URL = 'http://localhost:3500/events';
+
+  const [ events, setEvents ] = useState([]);
+  const [newEvent, setNewEvent] = useState('');
+  const[search, setSearch] = useState('');
+
   return (
     <Router history={history}>
       <div className="App">
-        <Dashboard />
+        <Dashboard
+          search={search}
+          setSearch={setSearch}
+          />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/create" exact component={CreateEvent} />
