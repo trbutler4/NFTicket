@@ -26,7 +26,7 @@ import "./Events.css";
     },
   };
 
-  const API_URL = 'http://localhost:3500/events';
+  const API_URL = 'http://localhost:3501/events';
   const [events, setEvents ] = useState([]);
   const[search, setSearch] = useState('');
   const [fetchError, setFetchError] = useState(null);
