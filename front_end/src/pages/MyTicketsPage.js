@@ -11,7 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import PersonIcon from '@mui/icons-material/Person';
 import BrushIcon from '@mui/icons-material/Brush';
 import { useState, useEffect } from 'react';
-import TicketContent from "../components/TicketContent";
+import TicketContent from "../components/ticketComponents/TicketContent";
 import SearchEvent from "../components/SearchEvent";
 
 function MyTicketsPage() {
@@ -74,7 +74,7 @@ function MyTicketsPage() {
                   <br></br>
                   <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {Array.from(Array(12)).map((_, index) => (
-                      <Grid item xs={4} sm={6} md={3} key={index}>
+                      <Grid item xs={4} sm={6} md={3} key={index}> {/* This is where the user owned ticket content will go */}
                         {isLoading && <p>Loading Items...</p>}
                         {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
                         {!fetchError && !isLoading && <TicketContent 
@@ -87,7 +87,6 @@ function MyTicketsPage() {
                 </Box>
               </div>
             </TabPanel>
-
             <TabPanel value="2">
               <div className="createdNFTS">
                 <Box sx={{ flexGrow: 1 }}>
@@ -95,8 +94,13 @@ function MyTicketsPage() {
                   <br></br>
                   <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {Array.from(Array(12)).map((_, index) => (
-                      <Grid item xs={4} sm={6} md={3} key={index}>
-                        {/* User Created Events */}
+                      <Grid item xs={4} sm={6} md={3} key={index}> {/* This is where the user owned ticket content will go */}
+                        {isLoading && <p>Loading Items...</p>}
+                        {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
+                        {!fetchError && !isLoading && <TicketContent 
+                        tickets={tickets.filter(ticketName => ((ticketName.ticketName).toLowerCase()).includes
+                          (search.toLowerCase()))}
+                        />}
                       </Grid>
                     ))}
                   </Grid>

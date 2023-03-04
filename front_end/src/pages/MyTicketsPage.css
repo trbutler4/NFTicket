@@ -1,12 +1,27 @@
+.tickets {
+    color: #000;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 21px;
+    padding-left: 16px;
+    font-family: Inter, Arial;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 24px;
+    display: flex;
+  }
 
 .ownedNFTS{
-        grid-template-columns: repeat(4, 1fr);
-        padding-top: 25px;
-        padding-bottom: 25px;
-        padding-left: 25px;
-        padding-right: 25px;
-    
-      
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    visibility: visible;  
 }
 
 .createdNFTS{
@@ -15,11 +30,8 @@
     padding-bottom: 25px;
     padding-left: 25px;
     padding-right: 25px;
-
-  
+    visibility: visible;  
 }
-
-
 
 #nftItems2{
     height: 350px;

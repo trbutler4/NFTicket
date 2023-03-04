@@ -1,4 +1,4 @@
-import TicketComp from "./TicketComp"
+import TicketComp from './TicketComp'
 
 const TicketList = ({ tickets, handleCheck }) => {
      
@@ -6,7 +6,7 @@ const TicketList = ({ tickets, handleCheck }) => {
         <u1>
             {tickets.map((ticketName) => (
                 <TicketComp
-                    key={ticketName.ticketID}
+                    key={ticketName.id}
                     ticketName={ticketName}
                     ticketPrice={ticketName.ticketPrice}
                     ticketQuantity={ticketName.ticketQuantity}

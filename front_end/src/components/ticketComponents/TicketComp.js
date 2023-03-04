@@ -1,7 +1,7 @@
 const TicketComp = ({ticketName}) => {
 
     return(
-        <li className="ticketName" key={ticketName.ticketID}>
+        <li className="tickets" key={ticketName.id}>
             <label>{ticketName.ticketName}</label>
             <br />
             <label>{ticketName.ticketPrice}</label>
