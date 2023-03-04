@@ -153,8 +153,8 @@ import "./Events.css";
     
     <div className="nftGrid" >
         <Box sx={{ flexGrow: 1 }} >
+        <SearchEvent search={search} setSearch={setSearch} />
           <Grid container spacing={{ xs: 4, md: 6 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          <SearchEvent search={search} setSearch={setSearch} />
             {Array.from(Array(12)).map((_, index) => (
               <Grid item xs={4} sm={6} md={3} key={index}>
                   {isLoading && <p>Loading Items...</p>}

@@ -1,4 +1,4 @@
-const EventComp = ({eventName, category}) => {
+const EventComp = ({eventName}) => {
 
     return(
         <li className="eventName" key={eventName.id}>
@@ -6,7 +6,6 @@ const EventComp = ({eventName, category}) => {
             <br />
             <label>{eventName.category}</label>
             <br />
-            
         </li>
     )
 }

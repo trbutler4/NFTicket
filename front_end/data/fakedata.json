@@ -2,37 +2,115 @@
     "events": [
       {
         "id": 1,
-        "checked": false,
+        "selected": false,
         "eventName": "Lollapalooza 2023",
-        "category": "Festival"
+        "category": "Festival",
+        "tickets":
+        [
+          {
+            "ticketID": 1,
+            "ticketName": "4 Day General Admission",
+            "ticketPrice": 475,
+            "ticketQuantity": 300000
+          },
+          {
+            "ticketID": 2,
+            "ticketName": "VIP",
+            "ticketPrice": 900,
+            "ticketQuantity": 5000
+          },
+          {
+            "ticketID": 3,
+            "ticketName": "Thursday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 5000
+          },
+          {
+            "ticketID": 4,
+            "ticketName": "Friday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          },
+          {
+            "ticketID": 5,
+            "ticketName": "Saturday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          },
+          {
+            "ticketID": 6,
+            "ticketName": "Sunday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          }
+        ]
       },
       {
         "id": 2,
-        "checked": false,
+        "selected": false,
         "eventName": "Rolling Loud 2023",
-        "category": "Festival"
+        "category": "Festival",
+        "tickets":
+        [
+          {
+            "ticketID": 1,
+            "ticketName": "4 Day General Admission",
+            "ticketPrice": 475,
+            "ticketQuantity": 300000
+          },
+          {
+            "ticketID": 2,
+            "ticketName": "VIP",
+            "ticketPrice": 900,
+            "ticketQuantity": 5000
+          },
+          {
+            "ticketID": 3,
+            "ticketName": "Thursday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 5000
+          },
+          {
+            "ticketID": 4,
+            "ticketName": "Friday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          },
+          {
+            "ticketID": 5,
+            "ticketName": "Saturday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          },
+          {
+            "ticketID": 6,
+            "ticketName": "Sunday Only",
+            "ticketPrice": 900,
+            "ticketQuantity": 50000
+          }
+        ]
       },
       {
         "id": 3,
-        "checked": false,
+        "selected": false,
         "eventName": "Chicago Bears",
         "category": "Sports"
       },
       {
         "id": 4,
-        "checked": false,
+        "selected": false,
         "eventName": "Chicago Bulls",
         "category": "Sports"
       },
       {
         "id": 5,
-        "checked": false,
+        "selected": false,
         "eventName": "Chicago Blackhawks",
         "category": "Sports"
       },
       {
         "id": 6,
-        "checked": false,
+        "selected": false,
         "eventName": "Chicago Cubs",
         "category": "Sports"
       }

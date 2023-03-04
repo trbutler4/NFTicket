@@ -42,8 +42,6 @@ const Home = () => {
         </IconButton>
       </Stack>
     </div>
-     
-
     </div>
   );
 };

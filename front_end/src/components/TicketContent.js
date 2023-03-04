@@ -1,12 +1,12 @@
-import EventList from "./EventList"
+import TicketList from "./TicketList"
 
-const Content = ({events, handleCheck}) => {
+const TicketContent = ({tickets, handleCheck}) => {
 
     return(
         <>
-            {events.length ? (
-                <EventList
-                    events={events}
+            {tickets.length ? (
+                <TicketList
+                    tickets={tickets}
                     handleCheck={handleCheck}
                 />
             ) : (
@@ -18,4 +18,4 @@ const Content = ({events, handleCheck}) => {
     )
 }
 
-export default Content
+export default TicketContent
