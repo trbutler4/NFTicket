@@ -13,6 +13,13 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import {
+  getStorage,
+  ref as storageRef,
+  getDownloadURL,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 export default class CreateEventForm extends React.Component {
   constructor(props) {
     super(props);
@@ -23,10 +30,63 @@ export default class CreateEventForm extends React.Component {
       gaTicketPrice: "",
       eventId: 0,
       selectedImage: null,
+      imageUrl: null,
     };
+    // const storage = getStorage();
+    // const starsRef = storageRef(storage, "images/snoopy.png");
 
+    // // Get the download URL
+    // getDownloadURL(starsRef)
+    //   .then((url) => {
+    //     this.setState({ imageUrl: url });
+    //   })
+    //   .catch((error) => {
+    //     // A full list of error codes is available at
+    //     // https://firebase.google.com/docs/storage/web/handle-errors
+    //     switch (error.code) {
+    //       case "storage/object-not-found":
+    //         // File doesn't exist
+    //         break;
+    //       case "storage/unauthorized":
+    //         // User doesn't have permission to access the object
+    //         break;
+    //       case "storage/canceled":
+    //         // User canceled the upload
+    //         break;
+
+    //       // ...
+
+    //       case "storage/unknown":
+    //         // Unknown error occurred, inspect the server response
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //   });
     this.handleCreate = this.handleCreate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    console.log(this.state);
+  }
+
+  async testDB() {
+    const imageForDB = new File(
+      this.state.selectedImage,
+      this.state.eventName + "/mynewfile.jpeg"
+    );
+    console.log(imageForDB);
+    // let tempImageData = this.state.selectedImage;
+    // let newImage = {
+    //   ...tempImageData,
+    //   name: this.state.eventId + "/" + this.state.selectedImage.name,
+    // };
+    // this.setState({ selectedImage: newImage });
+    // const storage = getStorage();
+    // const storeRef = storageRef(storage, "images/snoopy.png");
+    // uploadBytes(storeRef, this.state.selectedImage).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((downloadURL) => {
+    //     console.log("File available at", downloadURL);
+    //   });
+    // });
   }
 
   async handleCreate(event) {
@@ -113,7 +173,13 @@ export default class CreateEventForm extends React.Component {
       console.log(`updating metadata/live_cid with ${cid}`);
       set(ref(database, "metadata/live_cid"), { cid: cid });
     });
-
+    // const storage = getStorage();
+    // const storeRef = storageRef(storage, "images/snoopy.png");
+    // uploadBytes(storeRef, this.state.selectedImage).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((downloadURL) => {
+    //     console.log("File available at", downloadURL);
+    //   });
+    // });
     alert("Event Created" + this.state.eventName);
   }
 
@@ -143,6 +209,11 @@ export default class CreateEventForm extends React.Component {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "25px",
+            backgroundColor: "#f5f5f5",
+            padding: "25px",
+            width: "100%",
           }}
         >
           <TextField
@@ -150,11 +221,10 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "50ch",
+              width: "90ch",
             }}
             required
             label="Event Name"
-            variant="filled"
             name="eventName"
             onChange={this.handleChange}
           />
@@ -163,14 +233,13 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "50ch",
+              width: "90ch",
             }}
             required
             multiline
             minRows={3}
             maxRows={10}
             label="Description"
-            variant="filled"
             name="eventDescription"
             onChange={this.handleChange}
           />
@@ -179,11 +248,10 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "50ch",
+              width: "90ch",
             }}
             required
             label="Number of GA Tickets"
-            variant="filled"
             name="numGATickets"
             type="number"
             onChange={this.handleChange}
@@ -193,21 +261,40 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "50ch",
+              width: "90ch",
             }}
             required
             label="GA Ticket Price"
-            variant="filled"
             name="gaTicketPrice"
             type="number"
             onChange={this.handleChange}
           />
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+          <FormControl
+            fullWidth
+            style={{
+              // marginTop: "25px",
+              // marginBottom: "25px",
+              width: "90ch",
+              justifyContent: "center",
+            }}
+          >
+            <InputLabel
+              id="demo-simple-select-label"
+              style={{
+                marginTop: "25px",
+                marginBottom: "25px",
+                width: "90ch",
+                justifyContent: "center",
+              }}
+            >
+              Category
+            </InputLabel>
             <Select
               style={{
                 marginTop: "25px",
                 marginBottom: "25px",
+                width: "90ch",
+                alignItems: "center",
               }}
               required
               value={this.state.category}
@@ -266,7 +353,7 @@ export default class CreateEventForm extends React.Component {
               width: "50ch",
             }}
             variant="contained"
-            onClick={this.handleCreate}
+            onClick={this.testDB}
           >
             Create
           </Button>
