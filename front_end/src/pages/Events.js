@@ -1,144 +1,69 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import EventCard from "../components/EventCard";
 import "./Events.css";
-import actualEvents from "../assets/events.json";
+//import EventsCategorySlider from "../components/EventsCategorySlider";
+import { ethers } from "ethers";
+import ContractData from "../NFTicket.json";
+import { ref, child, get } from "firebase/database";
+import { database } from "../firebase";
 
 const Events = () => {
-  const [eventsShown, setEventsShown] = useState();
+  const [events, setEvents] = useState([]);
 
-  //event handling for category clicks
-  const handleClick = (e) => {
-    setEventsShown(e.target.alt);
-    document.getElementsByClassName("nftGrid")[0].style.visibility = "visible";
-  };
+  // TODO: get this logic working from interface
+  const getLastEventId = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum)
+    const signer = await provider.getSigner()
+    const NFTicketAbi = ContractData.abi;
+    const NFTicketAddress = ContractData.address;
+    console.log("using contract: " + NFTicketAddress)
+    const NFTicketContract = new ethers.Contract(NFTicketAddress, NFTicketAbi, signer)
 
-  const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Resturants",
-      id: "resturants",
-      rows: 2,
-      cols: 2,
-      featured: true,
-    },
-    {
-      img: "./rollingloud.jpeg",
-      title: "Festivals",
-      rows: 2,
-      cols: 2,
-    },
-    {
-      img: "./PatrickMahomes.jpeg",
-      title: "Sports",
-      rows: 2,
-      cols: 2,
-    },
-    {
-      img: "./plane.png",
-      title: "Travel",
-      cols: 2,
-    },
-    {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Charity",
-      cols: 2,
-    },
-    {
-      img: "./virtual.jpg",
-      title: "Virtual",
-      rows: 2,
-      cols: 2,
-      featured: true,
-    },
-    {
-      img: "./doc.webp",
-      title: "Health & Wellness",
-    },
-  ];
+    const eventId = Number(await NFTicketContract.getLastEventId())
+    return eventId
+  }
+
+  // TODO: get this logic working from interface
+  const getEvents = async () => {
+    const cur_events = []
+    const lastEventId = await getLastEventId()
+    console.log("last event id: " + lastEventId)
+    for(let i = 0; i < lastEventId; i++) {
+        const dbRef = ref(database);
+        get(child(dbRef, `events/${i}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                cur_events.push(snapshot.val())
+                setEvents(cur_events)
+            } else {
+                console.log("No data available");
+            }
+        })
+    }
+  }
+
+  window.onload = async () => {
+      await getEvents()
+  }
 
   return (
     <div className="events">
-      <ImageList
-        sx={{
-          gridAutoFlow: "column",
-          gridAutoColumns: "minmax(400px, 1fr)",
-          width: 1400,
-          height: 320,
-        }}
-        cols={3}
-      >
-        <ImageListItem key="Subheader" cols={3}></ImageListItem>
-        {itemData.map((item) => (
-          <button
-            onClick={(e) => {
-              handleClick(e);
-            }}
-          >
-            <ImageListItem key={item.img}>
-              <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={item.author}
-                actionIcon={
-                  <IconButton
-                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                    aria-label={`info about ${item.title}`}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                }
-              />
-            </ImageListItem>
-          </button>
-        ))}
-      </ImageList>
-      <label className="categoryLabel"></label>
       <Box sx={{ width: "100%", typography: "body1"}}>
-        <div className="nftGrid">
+        <div className="eventsDisplay">
           <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 4, md: 6 }}
-              columns={{ xs: 4, sm: 8, md: 10 }}
-              alignItems="center"
-              justifyContent="center"
-            >
-              {actualEvents &&
-                actualEvents.map(({ category, user, nameVal, date, event_description }) => {
-                  if (category === eventsShown) {
-                    return (
-                      <Grid item xs={4} sm={6} md={4}>
-                        <Link to={{ pathname: "/event", state: { nameVal } }}>
-                          <EventCard
-                            data={{
-                              category,
-                              user,
-                              nameVal,
-                              date,
-                              event_description,
-                            }}
-                          />
-                        </Link>
-                      </Grid>
-                    );
-                  }
-                })}
-            </Grid>
+            {events.map((event) => (
+                <EventCard
+                    key={event.eventId}
+                    name={event.eventName}
+                    description={event.eventDescription}
+                />
+            ))}
           </Box>
         </div>
+
+
+
       </Box>
     </div>
   );

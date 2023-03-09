@@ -9,19 +9,19 @@ import { blue } from '@mui/material/colors';
 export default function EventCard(props) {
 
   return (
-    <Card sx={{ display: 'flex', width: 700 }}>
+    <Card sx={{ display: 'flex', width: 1400 }}>
       <CardMedia
         component="img"
         sx={{ width: 250 }}
         image={require("../assets/lolla.png")}
         alt="NFT name"
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column', width: 550, bgcolor: blue[500] }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', width: 1400, bgcolor: blue[500] }}>
         <CardHeader
-          title={props.data.nameVal}
+          title={props.name}
         />
         <CardContent sx={{ width: 400 }}>
-        {props.data.event_description}
+        {props.description}
         </CardContent>
       </Box>
     </Card>

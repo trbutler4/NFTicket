@@ -1,10 +1,10 @@
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-    experiments: {
-        topLevelAwait: true
+    webpack: {
+          experiments: {
+            topLevelAwait: true
+          }
     },
-    plugins: [
-        new Dotenv()
-    ],
+  plugins: [new Dotenv()],
 };
