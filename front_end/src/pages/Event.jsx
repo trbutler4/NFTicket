@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "../styles/MyTicketsPage.css";
 import Box from "@mui/material/Box";
 import MintButton from "../components/MintButton";
-import Lollapng from "../assets/lolla.png";
 import { useParams } from "react-router-dom";
 import { getEventInfo } from "../interfaces/firebase_interface";
 
@@ -11,6 +10,7 @@ export default function Event() {
   const [eventInfo, setEventInfo] = React.useState({
     name: "",
     description: "",
+    thumbnail: "",
   });
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -18,8 +18,9 @@ export default function Event() {
     getEventInfo(eventId).then((eventInfo) => {
       console.log("eventInfo: ", eventInfo);
       setEventInfo({
-        name: eventInfo.eventName,
-        description: eventInfo.eventDescription,
+        name: eventInfo[0].eventName,
+        description: eventInfo[0].eventDescription,
+        thumbnail: eventInfo[0].thumbnail,
       });
     });
   };
@@ -35,7 +36,7 @@ export default function Event() {
   return (
     <div className="main-contain">
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <img alt="" src={Lollapng} width={200} height={200}></img>
+        <img alt="" src={eventInfo.thumbnail} width={200} height={200}></img>
         <div>
           {
             <div>

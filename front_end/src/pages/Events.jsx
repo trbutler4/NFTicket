@@ -3,39 +3,25 @@ import Box from "@mui/material/Box";
 import EventCard from "../components/EventCard";
 import "../styles/Events.css";
 import EventsCategorySlider from "../components/EventsCategorySlider";
-import { getLastEventId } from "../interfaces/NFTicket_interface";
-import { ref, get, child } from "firebase/database";
-import { database } from "../firebase";
+import { updateEvents } from "../interfaces/firebase_interface";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const updateEvents = async () => {
-    const cur_events = [];
-    const lastEventId = await getLastEventId();
-    console.log("last event id: " + lastEventId);
-    for (let i = 0; i < lastEventId; i++) {
-      const dbRef = ref(database);
-      await get(child(dbRef, `events/${i}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          cur_events.push(snapshot.val());
-          setEvents(cur_events);
-        } else {
-          console.log("No data available");
-        }
-      });
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
-    updateEvents();
+    async function getEvents() {
+      let eventData = await updateEvents();
+      setEvents(eventData);
+      setIsLoading(false);
+    }
+    getEvents();
   }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="events">
       <EventsCategorySlider />
@@ -60,11 +46,14 @@ const Events = () => {
                   }}
                   key={event.eventId}
                 >
+                  {console.log(event)}
                   <EventCard
                     key={event.eventId}
                     eventId={event.eventId}
                     name={event.eventName}
                     description={event.eventDescription}
+                    thumbnail={event.thumbnail}
+                    test={"testtest"}
                   />
                 </div>
               ))}

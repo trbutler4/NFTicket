@@ -11,13 +11,14 @@ export default function EventCard(props) {
     console.log("props: ", props);
     window.location.href = `/event/${props.eventId}`;
   };
-
+  // console.log(props);
   return (
     <Card sx={{ display: "flex", width: 1400 }} onClick={routeEvent}>
+      {console.log(props)}
       <CardMedia
         component="img"
         sx={{ width: 250 }}
-        image={require("../assets/lolla.png")} // TODO: loads this from firebase
+        image={props.thumbnail} // TODO: loads this from firebase
         alt="Event name"
       />
       <Box
