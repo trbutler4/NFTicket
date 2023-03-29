@@ -30,7 +30,7 @@ export default function Event() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading....</div>;
   }
   return (
     <div className="main-contain">
