@@ -16,7 +16,6 @@ export default function Event() {
 
   const updateEventInfo = async () => {
     getEventInfo(eventId).then((eventInfo) => {
-      console.log("eventInfo: ", eventInfo);
       setEventInfo({
         name: eventInfo[0].eventName,
         description: eventInfo[0].eventDescription,
