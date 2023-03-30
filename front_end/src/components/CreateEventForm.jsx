@@ -159,7 +159,7 @@ export default class CreateEventForm extends React.Component {
         stlye={{ justifyContent: "center", alignItems: "center" }}
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "50ch" },
+          "& > :not(style)": { m: 1, width: "90%" },
         }}
         noValidate
         autoComplete="off"
@@ -173,7 +173,7 @@ export default class CreateEventForm extends React.Component {
             borderRadius: "25px",
             backgroundColor: "#f5f5f5",
             padding: "25px",
-            width: "100%",
+            width: "100ch",
           }}
         >
           <TextField
@@ -181,7 +181,7 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "90ch",
+              width: "100%",
             }}
             required
             label="Event Name"
@@ -193,7 +193,7 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "90ch",
+              width: "100%",
             }}
             required
             multiline
@@ -208,7 +208,7 @@ export default class CreateEventForm extends React.Component {
             style={{
               marginTop: "25px",
               marginBottom: "25px",
-              width: "90ch",
+              width: "100%",
             }}
             required
             label="Number of GA Tickets"
@@ -220,9 +220,9 @@ export default class CreateEventForm extends React.Component {
             id="gaTicketPrice"
             style={{
               marginTop: "25px",
-              marginBottom: "25px",
-              width: "90ch",
-            }}
+              marginBottom: "25px", 
+              width: "100%",
+              }}
             required
             label="GA Ticket Price"
             name="gaTicketPrice"
@@ -235,7 +235,6 @@ export default class CreateEventForm extends React.Component {
               style={{
                 marginTop: "25px",
                 marginBottom: "25px",
-                width: "90ch",
                 alignItems: "center",
 
               }}

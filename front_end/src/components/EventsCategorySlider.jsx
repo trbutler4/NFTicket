@@ -13,24 +13,34 @@ export default function EventsCategorySlider(props) {
 
   const itemData = [
     {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      category: "Resturants",
+      img: "./wineDinner.jpg",
+      title: "Resturants",
+      id: "resturants",
+      rows: 2,
+      cols: 2,
+      featured: true,
     },
     {
-      img: "./rollingloud.jpeg",
-      category: "Festivals",
+      img: "./edm.jpg",
+      title: "Festivals",
+      rows: 2,
+      cols: 2,
     },
     {
-      img: "./PatrickMahomes.jpeg",
-      category: "Sports",
+      img: "./sports.jpg",
+      title: "Sports",
+      rows: 2,
+      cols: 2,
     },
     {
-      img: "./plane.png",
-      category: "Travel",
+      img: "./travel.jpg",
+      title: "Travel",
+      cols: 2,
     },
     {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      category: "Charity",
+      img: "./charity.jpg",
+      title: "Charity",
+      cols: 2,
     },
     {
       img: "./virtual.jpg",
@@ -44,7 +54,7 @@ export default function EventsCategorySlider(props) {
 
   const [selectedCategory, setSelectedCategory] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
-  
+
   const handleCategoryClick = (itemData) => {
     setSelectedCategory(itemData.category);
     const db = firebase.firestore();
