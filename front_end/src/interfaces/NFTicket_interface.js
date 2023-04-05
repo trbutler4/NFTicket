@@ -23,3 +23,10 @@ export const getTicketBalance = async (address, eventId) => {
     const balance = await contractRef.balanceOf(address, eventId)
     return Number(balance)
 }
+
+export const getRemainingTickets = async (eventId) => {
+    const contractRef = await getContractRef()
+    const remainingTickets = await contractRef.getGATicketsAvailable(eventId)
+    console.log("remaining tickets: ", Number(remainingTickets))
+    return Number(remainingTickets)
+}

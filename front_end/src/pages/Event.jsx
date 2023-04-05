@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { getEventInfo } from "../interfaces/firebase_interface";
 import { Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import { getRemainingTickets } from "../interfaces/NFTicket_interface";
 
 export default function Event() {
   const { eventId } = useParams();
@@ -19,14 +20,14 @@ export default function Event() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const updateEventInfo = async () => {
+    const remainingTickets = await getRemainingTickets(eventId);
     getEventInfo(eventId).then((eventInfo) => {
-      console.log("eventInfo: ", eventInfo);
       setEventInfo({
         name: eventInfo[0].eventName,
         description: eventInfo[0].eventDescription,
         thumbnail: eventInfo[0].thumbnail,
-        price: Number((eventInfo[0].gaTicketPrice * 0.0005361).toFixed(5)),
-        avaliableTickets: eventInfo[0].numGATickets,
+        price: Number((eventInfo[0].gaTicketPrice * 0.0005361).toFixed(5)), // change smart contract to return price in ETH or API
+        avaliableTickets: remainingTickets,
       });
     });
   };
