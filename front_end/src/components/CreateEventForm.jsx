@@ -15,10 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { storage } from "../firebase.js";
 import { uploadBytes, ref as sRef } from "firebase/storage";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export default class CreateEventForm extends React.Component {
   constructor(props) {
@@ -41,7 +40,6 @@ export default class CreateEventForm extends React.Component {
   async handleCreate(event) {
     alert("Creating Event: " + this.state.eventName);
     event.preventDefault();
-
 
     // TODO: redirect to confirmation page
     // determine event id and create event
@@ -116,7 +114,7 @@ export default class CreateEventForm extends React.Component {
     // write to database
     this.setState({ ["eventId"]: eventId }, async () => {
       // upload image
-      console.log("uploading image...")
+      console.log("uploading image...");
       console.log(eventId);
       console.log(this.state.selectedImage);
       await this.uploadImage(eventId, this.state.selectedImage);
@@ -133,7 +131,6 @@ export default class CreateEventForm extends React.Component {
     });
 
     alert("Event Created" + this.state.eventName);
-
   }
 
   handleChange(event) {
@@ -154,7 +151,6 @@ export default class CreateEventForm extends React.Component {
     await uploadBytes(storageRef, file);
     console.log("uploaded image");
   }
-
 
   render() {
     return (
@@ -191,11 +187,9 @@ export default class CreateEventForm extends React.Component {
             name="eventName"
             onChange={this.handleChange}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker']}>
-        <DatePicker label="Basic date picker" />
-      </DemoContainer>
-    </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker label="Basic date picker" />
+          </LocalizationProvider>
 
           <TextField
             id="eventDescription"
@@ -229,9 +223,9 @@ export default class CreateEventForm extends React.Component {
             id="gaTicketPrice"
             style={{
               marginTop: "25px",
-              marginBottom: "25px", 
+              marginBottom: "25px",
               width: "100%",
-              }}
+            }}
             required
             label="GA Ticket Price"
             name="gaTicketPrice"
@@ -245,7 +239,6 @@ export default class CreateEventForm extends React.Component {
                 marginTop: "25px",
                 marginBottom: "25px",
                 alignItems: "center",
-
               }}
               required
               label="category"
@@ -305,7 +298,6 @@ export default class CreateEventForm extends React.Component {
             }}
             variant="contained"
             onClick={this.handleCreate}
-
           >
             Create
           </Button>
