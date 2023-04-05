@@ -30,6 +30,7 @@ export default class CreateEventForm extends React.Component {
       eventId: 0,
       selectedImage: null,
       eventCategory: "",
+      eventDate: new Date(),
     };
 
     this.handleCreate = this.handleCreate.bind(this);
@@ -188,7 +189,19 @@ export default class CreateEventForm extends React.Component {
             onChange={this.handleChange}
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker label="Basic date picker" />
+            <DatePicker 
+            id="eventDate"
+            sx={{
+              marginTop: "25px",
+              marginBottom: "25px",
+              width: "100%",
+            }}
+            required
+            label="Date"
+            name="eventDate"
+            onChange={this.handleChange}
+          
+             />
           </LocalizationProvider>
 
           <TextField
