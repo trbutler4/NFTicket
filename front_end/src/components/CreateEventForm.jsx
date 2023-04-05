@@ -15,7 +15,10 @@ import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { storage } from "../firebase.js";
 import { uploadBytes, ref as sRef } from "firebase/storage";
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default class CreateEventForm extends React.Component {
   constructor(props) {
@@ -188,6 +191,12 @@ export default class CreateEventForm extends React.Component {
             name="eventName"
             onChange={this.handleChange}
           />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']}>
+        <DatePicker label="Basic date picker" />
+      </DemoContainer>
+    </LocalizationProvider>
+
           <TextField
             id="eventDescription"
             style={{
