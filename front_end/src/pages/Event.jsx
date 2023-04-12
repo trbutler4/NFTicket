@@ -27,6 +27,9 @@ export default function Event() {
         thumbnail: eventInfo[0].thumbnail,
         price: Number((eventInfo[0].gaTicketPrice * 0.0005361).toFixed(5)),
         avaliableTickets: eventInfo[0].numGATickets,
+        date: eventInfo[0].eventDate
+          ? eventInfo[0].eventDate
+          : "No Date Stored",
       });
     });
   };
@@ -71,7 +74,7 @@ export default function Event() {
                 </div>
               </Typography>
               <Typography variant="body1" gutterBottom>
-                <div>DATE</div>
+                <div>Date: {eventInfo.date}</div>
                 <div>Ticket Price: {eventInfo.price} ETH</div>
                 <div>Avaliable Tickets: {eventInfo.avaliableTickets}</div>
               </Typography>

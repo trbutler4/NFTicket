@@ -38,8 +38,8 @@ const Events = () => {
   };
 
   const handleSearch = (e) => {
-      setSearchTerm(e.target.value);
-      filterEvents();
+    setSearchTerm(e.target.value);
+    filterEvents();
   };
 
   useEffect(() => {
@@ -124,6 +124,9 @@ const Events = () => {
                         eventId={event.eventId}
                         name={event.eventName}
                         description={event.eventDescription}
+                        date={
+                          event.eventDate ? event.eventDate : "No Date Listed"
+                        }
                         thumbnail={event.thumbnail}
                         category={event.category}
                       />

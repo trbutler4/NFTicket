@@ -18,6 +18,8 @@ import { uploadBytes, ref as sRef } from "firebase/storage";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { format } from "date-fns";
 
 export default class CreateEventForm extends React.Component {
   constructor(props) {
@@ -30,6 +32,7 @@ export default class CreateEventForm extends React.Component {
       eventId: 0,
       selectedImage: null,
       eventCategory: "",
+      eventDate: format(new Date(), "dd/MM/yyyy"),
     };
 
     this.handleCreate = this.handleCreate.bind(this);
@@ -188,7 +191,21 @@ export default class CreateEventForm extends React.Component {
             onChange={this.handleChange}
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker label="Basic date picker" />
+            <DatePicker
+              sx={{
+                marginTop: "25px",
+                marginBottom: "25px",
+                width: "100%",
+              }}
+              name="eventDate"
+              label="Date of Event"
+              onChange={(event) => {
+                this.setState({
+                  eventDate: format(event, "dd/MM/yyyy"),
+                });
+              }}
+              inputFormat="dd/mm/yyyy"
+            />
           </LocalizationProvider>
 
           <TextField

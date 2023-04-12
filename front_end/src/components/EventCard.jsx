@@ -38,7 +38,12 @@ export default function EventCard(props) {
             </div>
           </Typography>
 
-          <Typography variant="body1">DATE</Typography>
+          <Typography variant="body1">
+            {" "}
+            <div style={{ color: "black", fontFamily: "Roboto" }}>
+              {props.date}
+            </div>
+          </Typography>
 
           <Typography
             variant="h4"
