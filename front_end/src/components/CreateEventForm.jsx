@@ -191,21 +191,7 @@ export default class CreateEventForm extends React.Component {
             onChange={this.handleChange}
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              sx={{
-                marginTop: "25px",
-                marginBottom: "25px",
-                width: "100%",
-              }}
-              name="eventDate"
-              label="Date of Event"
-              onChange={(event) => {
-                this.setState({
-                  eventDate: format(event, "dd/MM/yyyy"),
-                });
-              }}
-              inputFormat="dd/mm/yyyy"
-            />
+            <DatePicker label="Basic date picker" />
           </LocalizationProvider>
 
           <TextField
