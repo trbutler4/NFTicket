@@ -19,9 +19,15 @@ const Dashboard = (props) => {
         My Tickets
       </Button>
 
+      <Button variant="contained" class="button" href="/myevents">
+        My Events
+      </Button>
+
       <Button variant="contained" class="button" href="/create">
         Create
       </Button>
+
+
 
       <ConnectWalletButton />
     </nav>

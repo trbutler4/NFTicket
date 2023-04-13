@@ -8,6 +8,7 @@ import Event from "./pages/Event.jsx";
 import { createBrowserHistory as history } from "history";
 import Dashboard from "./components/Dashboard";
 import Events from "./pages/Events.jsx";
+import MyEvents from "./pages/MyEvents.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/create" exact component={CreateEvent} />
           <Route path="/events" exact component={Events} />
           <Route path="/tickets" exact component={MyTicketsPage} />
+          <Route path="/myevents" exact component={MyEvents} />
           <Route
             path="create/confirmation"
             exact
