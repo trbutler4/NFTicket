@@ -5,12 +5,24 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import { blue } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
+import { getEventImageUrl } from "../interfaces/firebase_interface";
+import { useEffect } from "react";
 
 export default function EventCard(props) {
+  const [imageUrl, setImageUrl] = React.useState("");
+
   const routeEvent = async () => {
     console.log("props: ", props);
     window.location.href = `/event/${props.eventId}`;
   };
+
+  useEffect(() => {
+    if (imageUrl === "") {
+        getEventImageUrl(props.eventId).then((url) => {
+            setImageUrl(url);
+        })
+    }
+  }, [imageUrl])
 
   return (
     <Card
@@ -20,7 +32,7 @@ export default function EventCard(props) {
       <CardMedia
         component="img"
         sx={{ width: 250 }}
-        image={props.thumbnail} // TODO: loads this from firebase
+        image={imageUrl} // TODO: loads this from firebase
         alt="Event name"
       />
       <Box
@@ -59,12 +71,5 @@ export default function EventCard(props) {
       </Box>
     </Card>
 
-    //sx={{ width: 600, fontSize: 50 }}
-    //<Typography gutterBottom variant="h5" component="div">
-    //{props.name}
-    //</Typography>
-    //<Typography variant="body2" color="text.secondary">
-    //{props.description}
-    //</Typography>
   );
 }

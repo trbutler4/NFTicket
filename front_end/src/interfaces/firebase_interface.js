@@ -4,6 +4,7 @@ import {
   getStorage,
   ref as storageRef,
   getDownloadURL,
+  uploadBytes,
 } from "firebase/storage";
 import { getLastEventId } from "./NFTicket_interface";
 
@@ -37,74 +38,45 @@ export const getEventInfo = async (eventId) => {
     .catch((error) => {
       console.error(error);
     });
-  const storage = getStorage();
-  const imageRef = storageRef(storage, `events/${eventId}/image.jpg`);
-  // TODO: update to store the image url in the events database so we dont need to do this
-  await getDownloadURL(imageRef)
-    .then((url) => {
-      events[0].thumbnail = url;
-    })
-    .catch((error) => {
-      switch (error.code) {
-        case "storage/object-not-found":
-          console.log(error.code);
-          break;
-        case "storage/unauthorized":
-          console.log(error.code);
-          break;
-        case "storage/canceled":
-          console.log(error.code);
-          break;
-        case "storage/unknown":
-          console.log(error.code);
-          break;
-        default:
-          console.log(error.code);
-          break;
-      }
-    });
-  return events;
+
+  return events[0];
 };
 
 export const updateEvents = async () => {
   const cur_events = [];
   const lastEventId = await getLastEventId();
   console.log("last event id: " + lastEventId);
-  for (let i = 0; i < lastEventId; i++) {
+  for (let i = 1; i <= lastEventId; i++) {
     const dbRef = ref(database);
     await get(child(dbRef, `events/${i}`)).then((snapshot) => {
       if (snapshot.exists()) {
-        cur_events.push(snapshot.val());
+        const event = snapshot.val();
+        cur_events.push(event);
       } else {
         console.log("No data available");
       }
     });
-    const storage = getStorage();
-    const imageRef = storageRef(storage, `events/${i}/image.jpg`);
-    await getDownloadURL(imageRef)
-      .then((url) => {
-        cur_events[i].thumbnail = url;
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "storage/object-not-found":
-            console.log(error.code);
-            break;
-          case "storage/unauthorized":
-            console.log(error.code);
-            break;
-          case "storage/canceled":
-            console.log(error.code);
-            break;
-          case "storage/unknown":
-            console.log(error.code);
-            break;
-          default:
-            console.log(error.code);
-            break;
-        }
-      });
   }
-
   return cur_events;
 };
+
+export const getEventImageUrl = async (eventId) => {
+    const storage = getStorage();
+    return await getDownloadURL(storageRef(storage, `events/${eventId}/image.jpg`))
+};
+
+export const uploadMetadata = async (id, metadata) => {
+    const storage = getStorage();
+    const metadataRef = storageRef(storage, `metadata/${id}.json`);
+
+    // convert object into json string
+    const metadataString = JSON.stringify(metadata);
+
+    // create blob from json string
+    const blob = new Blob([metadataString], {type: "application/json"});
+
+    // upload blob to firebase storage
+    await uploadBytes(metadataRef, blob);
+
+}
+

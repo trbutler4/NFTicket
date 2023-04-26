@@ -6,17 +6,38 @@ import { useParams } from "react-router-dom";
 import { getEventInfo } from "../interfaces/firebase_interface";
 import { Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import { getEventImageUrl } from "../interfaces/firebase_interface";
+import { mintTickets } from "../interfaces/NFTicket_interface";
+import { updateNumGATickets } from "../interfaces/firebase_interface";
+import { getRemAvailTickets } from "../interfaces/NFTicket_interface";
 
-export default function Event() {
+export default function Event(props) {
   const { eventId } = useParams();
   const [eventInfo, setEventInfo] = React.useState({
     name: "",
     description: "",
-    thumbnail: "",
     price: 0,
-    avaliableTickets: 0,
+    availableTickets: 0,
   });
   const [isLoading, setIsLoading] = React.useState(true);
+  const [remAvailTickets, setRemAvailTickets] = React.useState(true);
+
+  // load image url
+  const [imageUrl, setImageUrl] = React.useState("");
+  useEffect(() => {
+    if (imageUrl === "") {
+        getEventImageUrl(eventId).then((url) => {
+            setImageUrl(url);
+        })
+    }
+  }, [imageUrl])
+
+  // query contract for available tickets
+  const loadAvailableTickets = async () => {
+    const availableTickets = await getRemAvailTickets(eventId);
+    setRemAvailTickets(availableTickets)
+    console.log("available tickets: ", availableTickets)
+  }
 
   const updateEventInfo = async () => {
     getEventInfo(eventId).then((eventInfo) => {
@@ -31,13 +52,26 @@ export default function Event() {
           ? eventInfo[0].eventDate
           : "No Date Stored",
       });
+
     });
+
   };
 
   useEffect(() => {
+    loadAvailableTickets().then(() => {
+      updateEventInfo();
+    })
+    setIsLoading(false)
+  }, [remAvailTickets]);
+
+  const handleMintTickets = async (amount) => {
+    const remainingAvailTickets = await mintTickets(eventId, amount);
+    setRemAvailTickets(remainingAvailTickets);
+
+    // Fetch the latest event information from Firebase and update the state
     updateEventInfo();
-    setIsLoading(false);
-  }, []);
+  };
+
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -61,7 +95,7 @@ export default function Event() {
         <div style={{ display: "flex" }}>
           <img
             alt=""
-            src={eventInfo.thumbnail}
+            src={imageUrl}
             width={350}
             height={350}
             justifyContent="left"
@@ -76,7 +110,7 @@ export default function Event() {
               <Typography variant="body1" gutterBottom>
                 <div>Date: {eventInfo.date}</div>
                 <div>Ticket Price: {eventInfo.price} ETH</div>
-                <div>Avaliable Tickets: {eventInfo.avaliableTickets}</div>
+                <div>Avaliable Tickets: {eventInfo.availableTickets}</div>
               </Typography>
               <Typography variant="h3" gutterBottom fontStyle="italic">
                 <div style={{ color: "black", fontFamily: "Roberto" }}>
@@ -84,7 +118,12 @@ export default function Event() {
                 </div>
               </Typography>
               <br />
-              <MintButton eventId={eventId} />
+              <MintButton
+                eventId={eventId}
+                //setRemAvailTickets={setRemAvailTickets}
+                //remAvailTickets={remAvailTickets}
+                onSuccess={handleMintTickets}
+               />
             </div>
           </div>
         </div>

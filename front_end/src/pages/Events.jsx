@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import EventCard from "../components/EventCard";
 import "../styles/Events.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { updateEvents } from "../interfaces/firebase_interface";
+import { updateEvents, getEventImageUrl } from "../interfaces/firebase_interface";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -45,6 +45,7 @@ const Events = () => {
   useEffect(() => {
     async function getEvents() {
       let eventData = await updateEvents();
+      console.log("events: ", eventData);
       setEvents(eventData);
       setDisplayList(eventData);
       setIsLoading(false);

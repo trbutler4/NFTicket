@@ -1,18 +1,10 @@
-# Sample Hardhat Project
+## NFTicket 
 
-npm install
-npx hardhat compile 
+NFT Ticket platform for easy event creation, transfer, redemption, and ownership
 
-hardhat course: https://www.youtube.com/watch?v=gyMwXuJrbJQ
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+### Test Report
 
-Try running some of the following tasks:
+The test report can be found [here](docs/TestReport.md)
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+
