@@ -18,11 +18,11 @@ export default function EventCard(props) {
 
   useEffect(() => {
     if (imageUrl === "") {
-        getEventImageUrl(props.eventId).then((url) => {
-            setImageUrl(url);
-        })
+      getEventImageUrl(props.eventId).then((url) => {
+        setImageUrl(url);
+      });
     }
-  }, [imageUrl])
+  }, [imageUrl]);
 
   return (
     <Card
@@ -49,7 +49,12 @@ export default function EventCard(props) {
               {props.name}
             </div>
           </Typography>
-
+          <Typography variant="body1">
+            {" "}
+            <div style={{ color: "black", fontFamily: "Roboto" }}>
+              {props.date}
+            </div>
+          </Typography>
           <Typography
             variant="h4"
             gutterBottom
@@ -63,6 +68,5 @@ export default function EventCard(props) {
         </CardContent>
       </Box>
     </Card>
-
   );
 }

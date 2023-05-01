@@ -26,18 +26,18 @@ export default function Event(props) {
   const [imageUrl, setImageUrl] = React.useState("");
   useEffect(() => {
     if (imageUrl === "") {
-        getEventImageUrl(eventId).then((url) => {
-            setImageUrl(url);
-        })
+      getEventImageUrl(eventId).then((url) => {
+        setImageUrl(url);
+      });
     }
-  }, [imageUrl])
+  }, [imageUrl]);
 
   // query contract for available tickets
   const loadAvailableTickets = async () => {
     const availableTickets = await getRemAvailTickets(eventId);
-    setRemAvailTickets(availableTickets)
-    console.log("available tickets: ", availableTickets)
-  }
+    setRemAvailTickets(availableTickets);
+    console.log("available tickets: ", availableTickets);
+  };
 
   const updateEventInfo = async () => {
     getEventInfo(eventId).then((eventInfo) => {
@@ -46,18 +46,19 @@ export default function Event(props) {
         name: eventInfo.eventName,
         description: eventInfo.eventDescription,
         price: Number((eventInfo.gaTicketPrice * 0.0005361).toFixed(5)),
-        availableTickets: remAvailTickets
+        availableTickets: remAvailTickets,
+        date: eventInfo[0].eventDate
+          ? eventInfo[0].eventDate
+          : "No Date Stored",
       });
-
     });
-
   };
 
   useEffect(() => {
     loadAvailableTickets().then(() => {
       updateEventInfo();
-    })
-    setIsLoading(false)
+    });
+    setIsLoading(false);
   }, [remAvailTickets]);
 
   const handleMintTickets = async (amount) => {
@@ -67,7 +68,6 @@ export default function Event(props) {
     // Fetch the latest event information from Firebase and update the state
     updateEventInfo();
   };
-
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -103,9 +103,10 @@ export default function Event(props) {
                   {eventInfo.name}
                 </div>
               </Typography>
+              <div>Date: {eventInfo.date}</div>
               <Typography variant="body1" gutterBottom>
                 <div>{`Ticket Price: ${eventInfo.price} ETH`}</div>
-                <div>{ `Available Tickets: ${eventInfo.availableTickets}`}</div>
+                <div>{`Available Tickets: ${eventInfo.availableTickets}`}</div>
               </Typography>
               <Typography variant="h3" gutterBottom fontStyle="italic">
                 <div style={{ color: "black", fontFamily: "Roberto" }}>
@@ -119,7 +120,7 @@ export default function Event(props) {
                 //remAvailTickets={remAvailTickets}
                 onSuccess={handleMintTickets}
                 data-test="mint-component"
-               />
+              />
             </div>
           </div>
         </div>

@@ -13,8 +13,15 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { storage } from "../firebase.js";
 import { uploadBytes, ref as sRef } from "firebase/storage";
 import { createEvent, getLastEventId } from "../interfaces/NFTicket_interface";
-import { getEventImageUrl, uploadMetadata } from "../interfaces/firebase_interface.js";
-
+import {
+  getEventImageUrl,
+  uploadMetadata,
+} from "../interfaces/firebase_interface.js";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { format } from "date-fns";
 export default class CreateEventForm extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +33,7 @@ export default class CreateEventForm extends React.Component {
       eventId: 0,
       selectedImage: null,
       eventCategory: "",
+      eventDate: format(new Date(), "dd/MM/yyyy"),
     };
 
     this.handleCreate = this.handleCreate.bind(this);
@@ -33,56 +41,51 @@ export default class CreateEventForm extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
   }
 
-
   async handleCreate(event) {
     alert("Creating Event: " + this.state.eventName);
     event.preventDefault();
 
     // TODO: redirect to confirmation page
     // determine event id and create event
-    createEvent(
-      this.state.numGATickets,
-      this.state.gaTicketPrice
-    ).then((response) => {
+    createEvent(this.state.numGATickets, this.state.gaTicketPrice).then(
+      (response) => {
         console.log("create event response: ", response);
         getLastEventId().then((eventId) => {
-            // write to database
-            this.setState({ ["eventId"]: eventId }, async () => {
-              // upload image
-              console.log("uploading image...")
-              console.log(eventId);
-              console.log(this.state.selectedImage);
-              await this.uploadImage(eventId, this.state.selectedImage);
+          // write to database
+          this.setState({ ["eventId"]: eventId }, async () => {
+            // upload image
+            console.log("uploading image...");
+            console.log(eventId);
+            console.log(this.state.selectedImage);
+            await this.uploadImage(eventId, this.state.selectedImage);
 
-              // update events
-              console.log(
-                `adding to events/${eventId} wtih state: ${JSON.stringify(this.state)}`
-              );
-              set(ref(database, "events/" + eventId), this.state);
+            // update events
+            console.log(
+              `adding to events/${eventId} wtih state: ${JSON.stringify(
+                this.state
+              )}`
+            );
+            set(ref(database, "events/" + eventId), this.state);
 
-              // create and upload metadata
-              const metadata = {
-                  name: `${this.state.eventName} Ticket`,
-                  description: `Digital Ticket for ${this.state.eventName}`,
-                  image: await getEventImageUrl(eventId),
-              };
+            // create and upload metadata
+            const metadata = {
+              name: `${this.state.eventName} Ticket`,
+              description: `Digital Ticket for ${this.state.eventName}`,
+              image: await getEventImageUrl(eventId),
+            };
 
-              this.state.numGATickets = parseInt(this.state.numGATickets);
-              for (let i = 0; i <= this.state.numGATickets; i++) {
-                  const ticketId = eventId * 1000000 + i;
-                  await uploadMetadata(ticketId, metadata);
-              }
+            this.state.numGATickets = parseInt(this.state.numGATickets);
+            for (let i = 0; i <= this.state.numGATickets; i++) {
+              const ticketId = eventId * 1000000 + i;
+              await uploadMetadata(ticketId, metadata);
+            }
+          });
 
-
-            });
-
-            alert("Event Created" + this.state.eventName);
-
+          alert("Event Created" + this.state.eventName);
         });
-    });
-  };
-
-
+      }
+    );
+  }
 
   handleChange(event) {
     const target = event.target;
@@ -102,7 +105,6 @@ export default class CreateEventForm extends React.Component {
     await uploadBytes(storageRef, file);
     console.log("uploaded image");
   }
-
 
   render() {
     return (
@@ -140,6 +142,23 @@ export default class CreateEventForm extends React.Component {
             onChange={this.handleChange}
             data-test="event-name-field"
           />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              sx={{
+                marginTop: "25px",
+                marginBottom: "25px",
+                width: "100%",
+              }}
+              name="eventDate"
+              label="Date of Event"
+              onChange={(event) => {
+                this.setState({
+                  eventDate: format(event, "dd/MM/yyyy"),
+                });
+              }}
+              inputFormat="dd/mm/yyyy"
+            />
+          </LocalizationProvider>
           <TextField
             id="eventDescription"
             style={{
@@ -176,7 +195,7 @@ export default class CreateEventForm extends React.Component {
               marginTop: "25px",
               marginBottom: "25px",
               width: "100%",
-              }}
+            }}
             required
             label="GA Ticket Price"
             name="gaTicketPrice"
@@ -191,7 +210,6 @@ export default class CreateEventForm extends React.Component {
                 marginTop: "25px",
                 marginBottom: "25px",
                 alignItems: "center",
-
               }}
               required
               label="category"
@@ -200,51 +218,66 @@ export default class CreateEventForm extends React.Component {
               onChange={this.handleChange}
               data-test="category-dropdown"
             >
-              <MenuItem data-test="restaurant-category" value={"Restaurants"}>Restaurants</MenuItem>
-              <MenuItem data-test="festival-category" value={"Festivals"}>Festivals</MenuItem>
-              <MenuItem data-test="sports-category" value={"Sports"}>Sports</MenuItem>
-              <MenuItem data-test="travel-category" value={"Travel"}>Travel</MenuItem>
-              <MenuItem data-test="charity-category" value={"Charity"}>Charity</MenuItem>
-              <MenuItem data-test="virtual-category" value={"Virtual"}>Virtual</MenuItem>
-              <MenuItem data-test="health-category" value={"Health"}>Health</MenuItem>
+              <MenuItem data-test="restaurant-category" value={"Restaurants"}>
+                Restaurants
+              </MenuItem>
+              <MenuItem data-test="festival-category" value={"Festivals"}>
+                Festivals
+              </MenuItem>
+              <MenuItem data-test="sports-category" value={"Sports"}>
+                Sports
+              </MenuItem>
+              <MenuItem data-test="travel-category" value={"Travel"}>
+                Travel
+              </MenuItem>
+              <MenuItem data-test="charity-category" value={"Charity"}>
+                Charity
+              </MenuItem>
+              <MenuItem data-test="virtual-category" value={"Virtual"}>
+                Virtual
+              </MenuItem>
+              <MenuItem data-test="health-category" value={"Health"}>
+                Health
+              </MenuItem>
             </Select>
           </FormControl>
-            {this.state.selectedImage && (
-                <div>
-                  <img
-                    alt="not found"
-                    width={"250px"}
-                    src={URL.createObjectURL(this.state.selectedImage)}
-                  />
-                  <br />
-                  <IconButton
-                    color="primary"
-                    component="label"
-                    onClick={() => {
-                      this.setState({ selectedImage: null });
-                      this.fileInput.value = "";
-                    }}
-                  >
-                    <AttachFileIcon fontSize="medium" /> Remove Image
-                  </IconButton>
-                </div>
-              )}
-              {!this.state.selectedImage && (
-                <IconButton color="primary" component="label">
-                  <input
-                    ref={(ref) => (this.fileInput = ref)}
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => {
-                      console.log(e.target.files[0]);
-                      this.setState({ selectedImage: e.target.files[0] });
-                    }}
-                    data-test="upload-image-input"
-                  />
-                  <AttachFileIcon data-test="upload-image-icon" fontSize="medium" /> Upload Image
-                </IconButton>
-              )}
+          {this.state.selectedImage && (
+            <div>
+              <img
+                alt="not found"
+                width={"250px"}
+                src={URL.createObjectURL(this.state.selectedImage)}
+              />
+              <br />
+              <IconButton
+                color="primary"
+                component="label"
+                onClick={() => {
+                  this.setState({ selectedImage: null });
+                  this.fileInput.value = "";
+                }}
+              >
+                <AttachFileIcon fontSize="medium" /> Remove Image
+              </IconButton>
+            </div>
+          )}
+          {!this.state.selectedImage && (
+            <IconButton color="primary" component="label">
+              <input
+                ref={(ref) => (this.fileInput = ref)}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => {
+                  console.log(e.target.files[0]);
+                  this.setState({ selectedImage: e.target.files[0] });
+                }}
+                data-test="upload-image-input"
+              />
+              <AttachFileIcon data-test="upload-image-icon" fontSize="medium" />{" "}
+              Upload Image
+            </IconButton>
+          )}
           <Button
             id="createEventButton"
             style={{

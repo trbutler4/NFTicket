@@ -3,7 +3,10 @@ import Box from "@mui/material/Box";
 import EventCard from "../components/EventCard";
 import "../styles/Events.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { updateEvents, getEventImageUrl } from "../interfaces/firebase_interface";
+import {
+  updateEvents,
+  getEventImageUrl,
+} from "../interfaces/firebase_interface";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -38,8 +41,8 @@ const Events = () => {
   };
 
   const handleSearch = (e) => {
-      setSearchTerm(e.target.value);
-      filterEvents();
+    setSearchTerm(e.target.value);
+    filterEvents();
   };
 
   useEffect(() => {
@@ -82,8 +85,12 @@ const Events = () => {
           style={{ fontSize: "30px", margin: "20px" }}
           data-test="events-category-select"
         >
-          <MenuItem data-test="virtual-category" value="Virtual">Virtual</MenuItem>
-          <MenuItem data-test="festivals-category" value="Festivals">Festivals</MenuItem>
+          <MenuItem data-test="virtual-category" value="Virtual">
+            Virtual
+          </MenuItem>
+          <MenuItem data-test="festivals-category" value="Festivals">
+            Festivals
+          </MenuItem>
           <MenuItem value="Restaraunts">Restaraunts</MenuItem>
           <MenuItem value="Sports">Sports</MenuItem>
           <MenuItem value="Travel">Travel</MenuItem>
@@ -128,6 +135,9 @@ const Events = () => {
                         eventId={event.eventId}
                         name={event.eventName}
                         description={event.eventDescription}
+                        date={
+                          event.eventDate ? event.eventDate : "No Date Listed"
+                        }
                         category={event.category}
                         data-test={`event-card-${event.eventId}`}
                       />
